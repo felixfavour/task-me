@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Tasks · TaskMe</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <img class="logo" src="{% static 'img/taskme.png' %}" alt="" class="header">
+        </div>
+        <hr>
+        <div class="nav-buttons">
+            <ul>  
+                <li class="active-nav-button"><i class="fa fa-check" aria-hidden="true"></i><a href="/tasks">Tasks</a></li>
+                <li class=""><i class="fa fa-plus" aria-hidden="true"></i><a href="/tasks/create">Add New Task</a></li>
+            </ul>
+        </div>
+        <div class="user-section">            
+            <hr>
+            <div class="user">
+                {% if user != None %}
+                    <h3 class=""><i class="fa fa-user" aria-hidden="true"></i> {{user.username}}</h3>
+                    <a href="/logout" type="button" class="btn btn-danger">Log out</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="main-section">
+        <header>
+            <h1>Tasks</h1>
+        </header>
+        <hr>
+        <div class="tasks">
+            <div class="container">
+                
+            {% for task in tasks %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-7">
+                            <h5 class="card-title">{{task.name}}</h5>
+                            <p class="card-text"><b>STATUS:</b> {{task.status}}</p>
+                            <button onclick="deleteTask('{{ task.id }}/delete')" class="btn btn-danger delete-btn"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete Task</button>
+                        </div>
+                        <div class="col-sm-12 col-md-5 action-center">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button onclick="updateTask('{{ task.id }}/update', '{{ task.name }}', 'In-Progress')"  type="button" class="btn btn-secondary ip-btn">In Progress</button>
+                                <button onclick="updateTask('{{ task.id }}/update', '{{ task.name }}', 'Done')"  type="button" class="btn btn-danger do-btn">Done</button>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% empty %}
+            <div class="no-tasks-container">
+                <div class="no-tasks">
+                    <img src="{%  static 'img/no-tasks.svg' %}" alt="" class="no-tasks-image">
+                </div>
+                <h2>Start by Creating a New Task</h2>
+                <a href="/tasks/create" class="btn btn-danger add-task-btn">Add Task</a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

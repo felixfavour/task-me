@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Tasks · New Task</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <img class="logo" src="{% static 'img/taskme.png' %}" alt="" class="header">
+        </div>
+        <hr>
+        <div class="nav-buttons">
+            <ul>  
+                <li><i class="fa fa-check" aria-hidden="true"></i><a href="/tasks">Tasks</a></li>
+                <li class="active-nav-button"><i class="fa fa-plus" aria-hidden="true"></i><a href="/tasks/create">Add New Task</a></li>
+            </ul>
+        </div>
+        <div class="user-section">            
+            <hr>
+            <div class="user">
+                {% if user != None %}
+                    <h3 class=""><i class="fa fa-user" aria-hidden="true"></i> {{user.username}}</h3>
+                    <a href="/logout" type="button" class="btn btn-danger">Log out</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="main-section">
+        <header>
+            <h1>Create a New Task</h1>
+        </header>
+        <hr>
+        <div class="tasks">
+            <div class="container">
+                
+                <form action="\tasks\create" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input required name="name" type="text" class="form-control form-input" placeholder="What is the name of your task?">
+                    </div>
+                    <div class="form-group">
+                        <select required class="form-control form-input"  name="status">
+                            <option value="In-Progress">In Progress</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Add Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
