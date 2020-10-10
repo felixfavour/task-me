@@ -55,7 +55,7 @@ class TaskListView(LoginRequiredMixin, ListAPIView):
         return Response(data=context, status=status.HTTP_201_CREATED, template_name='tasks/tasks.html')
 
 
-class TaskDetailView(APIView):
+class TaskDetailView(LoginRequiredMixin, APIView):
     """
     Class-Based View to Update a :Task and to delete a :Task
     """

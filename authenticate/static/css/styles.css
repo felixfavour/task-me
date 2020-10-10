@@ -97,3 +97,14 @@
     text-align: right;
 }
 
+/*
+ Styles for Login and Register Pages
+*/
+.auth-bg {
+    background: url('/static/img/bg.jpg')
+}
+
+.auth-box {
+    background-color: pink;
+}
+
